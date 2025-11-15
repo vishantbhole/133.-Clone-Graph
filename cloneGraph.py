@@ -57,3 +57,21 @@ def serialize_graph(start: Optional[Node]) -> List[List[int]]:
     for u in order:
         adj[u.val-1] = [v.val for v in u.neighbors]
     return adj
+
+
+
+if __name__ == "__main__":
+    sol = Solution()
+
+    # Example 1
+    adjList = [[2,4],[1,3],[2,4],[1,3]]
+    graph1 = build_graph_from_adj_list(adjList)
+    clone1 = sol.cloneGraph(graph1)
+    print("Cloned adj list 1:", serialize_graph(clone1))
+
+    # Example 2 (single node, no edges per LeetCode format: [[]])
+    adjList2 = [[]]
+    graph2 = build_graph_from_adj_list(adjList2)
+    clone2 = sol.cloneGraph(graph2)
+    print("Cloned adj list 2:", serialize_graph(clone2))
+
