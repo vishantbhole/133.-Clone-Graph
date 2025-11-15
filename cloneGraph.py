@@ -32,3 +32,28 @@ def build_graph_from_adj_list(adj: List[List[int]]) -> Optional[Node]:
     for i, nbrs in enumerate(adj, start=1):
         nodes[i].neighbors = [nodes[v] for v in nbrs]
     return nodes[1]
+
+
+
+def serialize_graph(start: Optional[Node]) -> List[List[int]]:
+    # Helper to print something meaningful: return adjacency list from the cloned graph
+    if not start:
+        return []
+    from collections import deque
+    idmap = {}
+    order = []
+    q = deque([start])
+    idmap[start] = start.val
+    seen = {start}
+    while q:
+        u = q.popleft()
+        order.append(u)
+        for v in u.neighbors:
+            if v not in seen:
+                seen.add(v)
+                q.append(v)
+    n = max(node.val for node in order)
+    adj = [[] for _ in range(n)]
+    for u in order:
+        adj[u.val-1] = [v.val for v in u.neighbors]
+    return adj
