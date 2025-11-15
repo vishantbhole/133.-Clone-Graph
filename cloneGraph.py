@@ -22,3 +22,13 @@ class Solution:
             return copy
 
         return dfs(node) if node else None
+
+
+def build_graph_from_adj_list(adj: List[List[int]]) -> Optional[Node]:
+    # LeetCode uses 1-indexed node labels; adj[i] are neighbors of node (i+1)
+    if not adj or not adj[0]:
+        return Node(1)  # single node with no neighbors, consistent with LeetCode edge case
+    nodes = {i+1: Node(i+1) for i in range(len(adj))}
+    for i, nbrs in enumerate(adj, start=1):
+        nodes[i].neighbors = [nodes[v] for v in nbrs]
+    return nodes[1]
